@@ -11,7 +11,7 @@ login_email = "we684123@gmail.com"
 application_password = "cqhshfcznapzvldb"
 from_email = "we684123@gmail.com"
 to_email = ["we684123@gmail.com"]
-images = ['1.png', '2.png']
+images = ['1.png', '2.png', '3.png']
 html_file = "template.html"
 
 
@@ -28,7 +28,9 @@ for image_number in range(0, len(images)):
     image_filename = get_filename(image_name, 'filename')
     image_extension = get_filename(image_name, 'extension', -1)
     pic = MIMEBase('image', image_extension)
-    pic.add_header('Content-ID', '<1>')
+    print('<{image_number}>')
+    pic.add_header(
+        'Content-ID', '<{0}>'.format(image_number+1))
     with open(image_name, 'rb') as f:
         pic.set_payload(f.read())
     encoders.encode_base64(pic)
@@ -47,3 +49,5 @@ if status == {}:
 else:
     print("郵件傳送失敗!")
 smtp.quit()
+
+# '<{0}>'.format(2)
