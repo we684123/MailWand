@@ -78,7 +78,7 @@ smtp = smtplib.SMTP_SSL('smtp.gmail.com')
 smtp.login(login_email, application_password)
 logger.info("Gmail已登入.")
 
-logger.info("開始發送!")
+logger.info("======開始發送!=====")
 for to_email in to_emails:
     msg['From'] = from_email
     msg['To'] = to_email
