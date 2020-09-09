@@ -17,6 +17,7 @@ base = base.base()
 login_email = base['login_email']
 application_password = base['application_password']
 
+header = base['header']
 from_email = base['from_email']
 to_emails = base['to_emails']
 images = base['images']
@@ -81,7 +82,7 @@ logger.info("開始發送!")
 for to_email in to_emails:
     msg['From'] = from_email
     msg['To'] = to_email
-    msg['Subject'] = Header('Email with inside picture', 'utf-8').encode()
+    msg['Subject'] = Header(header, 'utf-8').encode()
     status = smtp.sendmail(from_email, to_email, msg.as_string())
     if status == {}:
         logger.info("{0} 郵件傳送 成功!".format(to_email))
