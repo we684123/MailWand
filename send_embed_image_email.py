@@ -20,6 +20,7 @@ application_password = base['application_password']
 header = base['header']
 from_email = base['from_email']
 to_emails = base['to_emails']
+images_path = base['images_path']
 images = base['images']
 html_file = base['html_file']
 
@@ -67,16 +68,16 @@ for image_number in range(0, len(images)):
     image_extension = get_filename(image_name, 'extension', -1)
     pic = MIMEBase('image', image_extension)
     pic.add_header(
-        'Content-ID', '<{0}>'.format(image_number+1))
-    with open(image_name, 'rb') as f:
+        'Content-ID', '<{0}>'.format(image_filename))
+    with open(images_path+image_name, 'rb') as f:
         pic.set_payload(f.read())
     encoders.encode_base64(pic)
     msg.attach(pic)
-logger.info("inline images 已就緒.")
+logger.info("embed images 已就緒.")
 
 smtp = smtplib.SMTP_SSL('smtp.gmail.com')
 smtp.login(login_email, application_password)
-logger.info("Gmail已登入.")
+logger.info("Gmail {0} 已登入.".format(login_email))
 
 logger.info("======開始發送!=====")
 for to_email in to_emails:
