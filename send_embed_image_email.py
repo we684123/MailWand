@@ -1,3 +1,7 @@
+import sys
+import coloredlogs
+import logging.handlers
+from pathlib import Path
 import smtplib
 from email.header import Header
 from email.mime.text import MIMEText
@@ -5,11 +9,8 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.base import MIMEBase
 from email import encoders
 
-import sys
-import coloredlogs
-import logging.handlers
-
 from get_filename import get_filename
+
 from config import base
 base = base.base()
 
@@ -21,7 +22,6 @@ header = base['header']
 from_email = base['from_email']
 to_emails = base['to_emails']
 images_path = base['images_path']
-images = base['images']
 html_file = base['html_file']
 
 logging_level = base['logging_level']
@@ -51,25 +51,23 @@ coloredlogs.install(level=logging_level, logger=logger)
 logger.info("基礎設定已載入.")
 # logger設定完畢
 
-file = open(html_file, mode='r', encoding='utf-8')
-html = file.read()
-file.close()
+with open(html_file, mode='r', encoding='utf-8') as file:
+    html = file.read()
 logger.info("html模版已載入.")
-
 
 msg = MIMEMultipart('related')
 msg.attach(MIMEText(html, 'html', 'utf-8'))
 logger.info("email內容已生成.")
 
-for image_number in range(0, len(images)):
-    # image_number = 1
-    image_name = images[image_number]
-    image_filename = get_filename(image_name, 'filename')
-    image_extension = get_filename(image_name, 'extension', -1)
+image_list = list(Path(images_path).glob('*.png'))
+for image in image_list:
+    image_name = image.name
+    image_filename = get_filename(image.name, 'filename')
+    image_extension = get_filename(image.name, 'extension', -1)
     pic = MIMEBase('image', image_extension)
     pic.add_header(
         'Content-ID', '<{0}>'.format(image_filename))
-    with open(images_path+image_name, 'rb') as f:
+    with open(images_path + image.name, 'rb') as f:
         pic.set_payload(f.read())
     encoders.encode_base64(pic)
     msg.attach(pic)
@@ -89,4 +87,5 @@ for to_email in to_emails:
         logger.info("{0} 郵件傳送 成功!".format(to_email))
     else:
         logger.error("{0} 郵件傳送 失敗!".format(to_email))
+        logger.error(status)
 smtp.quit()
