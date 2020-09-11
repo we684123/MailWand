@@ -7,7 +7,7 @@
 # Packages install
 
 ```
-pip install coloredlogs
+pip install -r requirements.txt
 ```
 
 -----
