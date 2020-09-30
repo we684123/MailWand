@@ -51,19 +51,23 @@ coloredlogs.install(level=logging_level, logger=logger)
 # logger設定完畢
 
 
-class MailCrawler(object):
+class MailCrawler():
     """生產線般的寄出 mail."""
 
-    def __init__(self):
-        self._load_html()
+    def __init__(self, variable={}):
+        self._load_html(variable)
         self._generate_mail()
         self._load_smtp()
         self.logger = logger
         logger.info('==== All is ready====')
 
-    def _load_html(self):
+    def _load_html(self, variable):
         with open(html_file, mode='r', encoding='utf-8') as file:
             html = file.read()
+
+        for key in variable.keys():
+            html = html.replace(key, variable[key])
+
         self.html = html
         logger.info("html Template loaded.")
 
@@ -99,7 +103,8 @@ class MailCrawler(object):
             self.msg['From'] = from_email
             self.msg['To'] = to_email
             self.msg['Subject'] = Header(header, 'utf-8').encode()
-            status = self.smtp.sendmail(from_email, to_email, self.msg.as_string())
+            status = self.smtp.sendmail(
+                from_email, to_email, self.msg.as_string())
             if status == {}:
                 logger.info("{0} {1} Mail sent successfully!✅".format(
                     to_email, header))
