@@ -47,8 +47,9 @@ logger.addHandler(handler1)
 logger.addHandler(handler2)
 
 coloredlogs.install(level=logging_level, logger=logger)
-logger.info("基礎設定已載入.")
+# logger.info("基礎設定已載入.")
 # logger設定完畢
+
 
 class MailCrawler(object):
     """生產線般的寄出 mail."""
@@ -57,16 +58,19 @@ class MailCrawler(object):
         self._load_html()
         self._generate_mail()
         self._load_smtp()
+        self.logger = logger
+        logger.info('==== All is ready====')
 
     def _load_html(self):
         with open(html_file, mode='r', encoding='utf-8') as file:
             html = file.read()
-        logger.info("html模版已載入.")
+        self.html = html
+        logger.info("html Template loaded.")
 
     def _generate_mail(self):
         msg = MIMEMultipart('related')
-        msg.attach(MIMEText(html, 'html', 'utf-8'))
-        logger.info("email內容已生成.")
+        msg.attach(MIMEText(self.html, 'html', 'utf-8'))
+        logger.info("email content generated successfully.")
 
         image_list = list(Path(images_path).glob('*.png'))
         for image in image_list:
@@ -80,24 +84,30 @@ class MailCrawler(object):
                 pic.set_payload(f.read())
             encoders.encode_base64(pic)
             msg.attach(pic)
-        logger.info("embed images 已就緒.")
+        self.msg = msg
+        logger.info("embed images is ready.")
 
     def _load_smtp(self):
         smtp = smtplib.SMTP_SSL('smtp.gmail.com')
         smtp.login(login_email, application_password)
-        logger.info("Gmail {0} 已登入.".format(login_email))
+        logger.info("Gmail {0} logined.".format(login_email))
+        self.smtp = smtp
 
-    def send_to_mail(to_emails):
-        logger.info("======開始發送!=====")
+    def send_to_mail(self, to_emails):
+        logger.info("====== Start sending! =====")
         for to_email in to_emails:
-            msg['From'] = from_email
-            msg['To'] = to_email
-            msg['Subject'] = Header(header, 'utf-8').encode()
-            status = smtp.sendmail(from_email, to_email, msg.as_string())
+            self.msg['From'] = from_email
+            self.msg['To'] = to_email
+            self.msg['Subject'] = Header(header, 'utf-8').encode()
+            status = self.smtp.sendmail(from_email, to_email, self.msg.as_string())
             if status == {}:
-                logger.info("{0} {1} 郵件傳送 成功!✅".format(to_email,msg['Subject']))
+                logger.info("{0} {1} Mail sent successfully!✅".format(
+                    to_email, header))
             else:
-                logger.error("{0} {1} 郵件傳送 失敗!🚨".format(to_email,msg['Subject']))
+                logger.error("{0} {1} Mail sent failed!🚨".format(
+                    to_email, header))
                 logger.error(status)
+        logger.info('====== All sent ======')
+
     def close():
         smtp.quit()
