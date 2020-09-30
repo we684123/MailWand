@@ -109,5 +109,5 @@ class MailCrawler(object):
                 logger.error(status)
         logger.info('====== All sent ======')
 
-    def close():
-        smtp.quit()
+    def close(self):
+        self.smtp.quit()
