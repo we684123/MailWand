@@ -1,5 +1,6 @@
 import sys
-import time
+import random
+import string
 import coloredlogs
 import logging.handlers
 from pathlib import Path
@@ -53,7 +54,10 @@ class MailCrawler():
         if 'log_format' in kwargs:
             self.log_format = kwargs['log_format']
 
-        logger = logging.getLogger(__name__ + str(int(time.time())))
+        rdt_len = 5
+        rdt = ''.join(random.choice(string.ascii_letters + string.digits)
+                      for x in range(rdt_len))
+        logger = logging.getLogger(__name__ + '_' + rdt)
         handler1 = logging.StreamHandler(sys.stdout)
         handler2 = logging.handlers.TimedRotatingFileHandler(
             filename=self.log_file_path,
