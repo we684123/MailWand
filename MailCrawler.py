@@ -1,4 +1,5 @@
 import sys
+import time
 import coloredlogs
 import logging.handlers
 from pathlib import Path
@@ -17,44 +18,42 @@ base = base.base()
 # ======設定完畢=====
 
 
-
 class MailCrawler():
     """生產線般的寄出 mail."""
 
-    def __init__(self, variable={},**kwargs):
+    def __init__(self, variable={}, **kwargs):
         # base載入設定
         self.login_email = base['login_email']
-        if 'login_email' in kwargs :
+        if 'login_email' in kwargs:
             self.login_email = kwargs['login_email']
         self.application_password = base['application_password']
-        if 'application_password' in kwargs :
+        if 'application_password' in kwargs:
             self.application_password = kwargs['application_password']
 
         self.header = base['header']
-        if 'header' in kwargs :
+        if 'header' in kwargs:
             self.header = kwargs['header']
         self.from_email = base['from_email']
-        if 'from_email' in kwargs :
+        if 'from_email' in kwargs:
             self.from_email = kwargs['from_email']
         self.images_path = base['images_path']
-        if 'images_path' in kwargs :
+        if 'images_path' in kwargs:
             self.images_path = kwargs['images_path']
         self.html_file = base['html_file']
-        if 'html_file' in kwargs :
+        if 'html_file' in kwargs:
             self.html_file = kwargs['html_file']
 
         self.logging_level = base['logging_level']
-        if 'logging_level' in kwargs :
+        if 'logging_level' in kwargs:
             self.logging_level = kwargs['logging_level']
         self.log_file_path = base['log_file_path']
-        if 'log_file_path' in kwargs :
+        if 'log_file_path' in kwargs:
             self.log_file_path = kwargs['log_file_path']
         self.log_format = base['log_format']
-        if 'log_format' in kwargs :
+        if 'log_format' in kwargs:
             self.log_format = kwargs['log_format']
 
-
-        logger = logging.getLogger(__name__)
+        logger = logging.getLogger(__name__ + str(int(time.time())))
         handler1 = logging.StreamHandler(sys.stdout)
         handler2 = logging.handlers.TimedRotatingFileHandler(
             filename=self.log_file_path,
