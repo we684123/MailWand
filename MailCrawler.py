@@ -125,6 +125,7 @@ class MailCrawler():
         self.logger.info("====== Start sending! =====")
         for to_email in to_emails:
             self.msg['From'] = self.from_email
+            del self.msg['To'] # 不加這個會變成群發
             self.msg['To'] = to_email
             self.msg['Subject'] = Header(self.header, 'utf-8').encode()
             status = self.smtp.sendmail(
