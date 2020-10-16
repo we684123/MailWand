@@ -139,5 +139,23 @@ class MailCrawler():
                 self.logger.error(status)
         self.logger.info('====== All sent ======')
 
+    def send_to_multiple_recipients_mail(self, to_emails):
+        self.logger.info("====== Start sending! =====")
+        self.msg['From'] = self.from_email
+        del self.msg['To'] # 不加這個會變成群發
+        self.msg['To'] = (', ').join(to_emails)
+        self.msg['Subject'] = Header(self.header, 'utf-8').encode()
+        status = self.smtp.sendmail(
+            self.from_email, to_emails, self.msg.as_string())
+        if status == {}:
+            self.logger.info("{0} {1} Mail sent successfully!✅".format(
+                to_emails, self.header))
+        else:
+            self.logger.error("{0} {1} Mail sent failed!🚨".format(
+                to_emaisl, self.header))
+            self.logger.error(status)
+        self.logger.info('====== All sent ======')
+
+
     def close(self):
         self.smtp.quit()
