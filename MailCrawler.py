@@ -25,8 +25,10 @@ class MailCrawler():
     def __init__(self, variable={}, **kwargs):
         # base載入設定
         self.login_email = base['login_email']
+        # 或者看看有沒有被指定，有的話就蓋掉
         if 'login_email' in kwargs:
             self.login_email = kwargs['login_email']
+
         self.application_password = base['application_password']
         if 'application_password' in kwargs:
             self.application_password = kwargs['application_password']
@@ -34,12 +36,15 @@ class MailCrawler():
         self.header = base['header']
         if 'header' in kwargs:
             self.header = kwargs['header']
+
         self.from_email = base['from_email']
         if 'from_email' in kwargs:
             self.from_email = kwargs['from_email']
+
         self.images_path = base['images_path']
         if 'images_path' in kwargs:
             self.images_path = kwargs['images_path']
+
         self.html_file = base['html_file']
         if 'html_file' in kwargs:
             self.html_file = kwargs['html_file']
@@ -47,14 +52,17 @@ class MailCrawler():
         self.logging_level = base['logging_level']
         if 'logging_level' in kwargs:
             self.logging_level = kwargs['logging_level']
+
         self.log_file_path = base['log_file_path']
         if 'log_file_path' in kwargs:
             self.log_file_path = kwargs['log_file_path']
+
         self.log_format = base['log_format']
         if 'log_format' in kwargs:
             self.log_format = kwargs['log_format']
 
-        rdt_len = 5
+        rdt_len = 5 # 要隨機生成幾個字串
+        # ↓為了不要在多個 MailCrawler log打架
         rdt = ''.join(random.choice(string.ascii_letters + string.digits)
                       for x in range(rdt_len))
         logger = logging.getLogger(__name__ + '_' + rdt)
