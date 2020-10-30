@@ -45,6 +45,10 @@ class MailCrawler():
         if 'images_path' in kwargs:
             self.images_path = kwargs['images_path']
 
+        self.attachments_path = base['attachments_path']
+        if 'attachments_path' in kwargs:
+            self.attachments_path = kwargs['attachments_path']
+
         self.html_file = base['html_file']
         if 'html_file' in kwargs:
             self.html_file = kwargs['html_file']
@@ -120,8 +124,18 @@ class MailCrawler():
                 pic.set_payload(f.read())
             encoders.encode_base64(pic)
             msg.attach(pic)
+
+        attachments_list = list(Path(self.attachments_path).glob('*.*'))
+        for attachment in attachments_list:
+            with open(self.attachments_path + attachment.name, 'rb') as f:
+                msg = MIMEBase('application', "octet-stream")
+                msg.set_payload(f.read())
+            encoders.encode_base64(msg)
+            msg.add_header('Content-Disposition', 'attachment', filename=attachment.name)
+            msg.attach(msg)
+
         self.msg = msg
-        self.logger.info("embed images is ready.")
+        self.logger.info("attachments is ready.")
 
     def _load_smtp(self):
         smtp = smtplib.SMTP_SSL('smtp.gmail.com')
