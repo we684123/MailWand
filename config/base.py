@@ -4,7 +4,7 @@ def base():
         "application_password": "oxoxoxoxo",  # 請去跟google拿(詳細看Readme)
         "header": "發送 embed image",  # email標題
         "from_email": "ooo@gmail.com",  # 寄送者email
-        "images_path":"./images/",
+        "images_path":"./images/", # 目前圖片只支援png
         "html_file": "template.html",
         "logging_level": "DEBUG",  # DEBUG #INFO #ERROR
         "log_file_path": './logs/send_mail_log',
