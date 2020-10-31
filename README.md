@@ -1,7 +1,9 @@
-# send embed image email
+# MailCrawler
 有天被未來的同事(應該啦?)問了    
 「怎麼發送嵌在email內的圖片啊? 不是附件喔!」    
 
+2020/09/10 - send inline image email -> send embed image email
+2020/10/31 - send embed image email -> MailCrawler
 -----
 
 ## Packages install
