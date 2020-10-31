@@ -9,7 +9,7 @@ if __name__ == '__main__':
     # ↓如果是這樣就是會找 ./config/base.py 中設定的檔案們
     MailSender_1 = MailSender(variable)
     to_emails = ['ooo@gmail.com', 'xxx@gm.lhu.edu.tw']  # 要發送的對象們
-    MailSender_1.send_to_mail(to_emails)  # 群發(收件人會看到彼此)
+    MailSender_1.send_to_mail(to_emails)  # 群發(但彼此看不到)
     MailSender_1.close()  # 關閉SMTP
 
     # variable is 'Optional parameters'
@@ -23,5 +23,5 @@ if __name__ == '__main__':
         html_file='./template2.html'  # html 檔案的位置
     )
     to_emails2 = ['ooo@gmail.com', 'xxx@gm.lhu.edu.tw']
-    MailSender_2.send_to_multiple_recipients_mail(to_emails2)  # 群發(但彼此看不到)
+    MailSender_2.send_to_multiple_recipients_mail(to_emails2)  # 群發(收件人會看到彼此)
     MailSender_2.close()  # 關閉SMTP
