@@ -19,7 +19,7 @@ base = base.base()
 # ======設定完畢=====
 
 
-class MailCrawler():
+class MailSender():
     """生產線般的寄出 mail."""
 
     def __init__(self, variable={}, **kwargs):
