@@ -1,3 +1,3 @@
 ﻿coloredlogs==10.0
 get-filename==1.0.0
-MailCrawler==1.0.0
+MailCrawler==1.0.1
