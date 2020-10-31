@@ -1,4 +1,4 @@
-from mail_sender import MailSender
+from mailsender import MailSender
 
 
 if __name__ == '__main__':
