@@ -7,14 +7,15 @@
 2020/11/01 - MailSender -> MailSender     
 
 名字好難想Rrrr...    
-    
+
 -----
 
 ## Packages install
 
 ```allowEmpty
-pip install MailCrawler
+pip install mailsender
 ```
+**⚠️python version require >= 3.4⚠️**
 
 -----
 
