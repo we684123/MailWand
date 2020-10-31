@@ -1,3 +1,4 @@
-﻿coloredlogs==10.0
+﻿coloredlogs==14.0
 get-filename==1.0.0
-MailCrawler==1.0.1
+mailsender==1.0.0
+humanfriendly==8.1
