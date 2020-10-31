@@ -10,7 +10,7 @@
 ## Packages install
 
 ```allowEmpty
-pip install -r requirements.txt
+pip install MailCrawler
 ```
 
 -----
