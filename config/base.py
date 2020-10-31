@@ -8,6 +8,6 @@ def base():
         "attachments_path": "./attachments/",  # 要隨信附上的附件的資料夾位置
         "html_file": "template.html",  # html 檔案的位置
         "logging_level": "DEBUG",  # DEBUG #INFO #ERROR
-        "log_file_path": './logs/send_mail_log',
-        "log_format": '%(asctime)s - %(levelname)s : %(message)s',
+        "log_file_path": "./logs/send_mail_log",
+        "log_format": "%(asctime)s - %(levelname)s : %(message)s",
     }
