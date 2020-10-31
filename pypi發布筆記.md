@@ -15,6 +15,10 @@ easy_install：
 python setup.py bdist_egg
 ```
 
+all
+```
+python setup.py sdist;python setup.py sdist bdist_wheel;python setup.py bdist_egg
+```
 # 上傳指令
 
 要加入環境變數中
