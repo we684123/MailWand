@@ -1,9 +1,0 @@
-README.md
-setup.py
-MailCrawler/MailCrawler.py
-MailCrawler/__init__.py
-MailCrawler.egg-info/PKG-INFO
-MailCrawler.egg-info/SOURCES.txt
-MailCrawler.egg-info/dependency_links.txt
-MailCrawler.egg-info/requires.txt
-MailCrawler.egg-info/top_level.txt
