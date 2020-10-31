@@ -65,7 +65,7 @@ class MailCrawler():
         if 'log_format' in kwargs:
             self.log_format = kwargs['log_format']
 
-        rdt_len = 5  # 要隨機生成幾個字串
+        rdt_len = 5 # 要隨機生成幾個字串
         # ↓為了不要在多個 MailCrawler log打架
         rdt = ''.join(random.choice(string.ascii_letters + string.digits)
                       for x in range(rdt_len))
@@ -127,13 +127,12 @@ class MailCrawler():
 
         attachments_list = list(Path(self.attachments_path).glob('*.*'))
         for attachment in attachments_list:
-            att = MIMEBase('application', "octet-stream")
-            att.add_header('Content-Disposition', 'attachment',
-                           filename=attachment.name)
             with open(self.attachments_path + attachment.name, 'rb') as f:
-                att.set_payload(f.read())
-            encoders.encode_base64(att)
-            msg.attach(att)
+                msg = MIMEBase('application', "octet-stream")
+                msg.set_payload(f.read())
+            encoders.encode_base64(msg)
+            msg.add_header('Content-Disposition', 'attachment', filename=attachment.name)
+            msg.attach(msg)
 
         self.msg = msg
         self.logger.info("attachments is ready.")
@@ -148,7 +147,7 @@ class MailCrawler():
         self.logger.info("====== Start sending! =====")
         for to_email in to_emails:
             self.msg['From'] = self.from_email
-            del self.msg['To']  # 不加這個會變成群發
+            del self.msg['To'] # 不加這個會變成群發
             self.msg['To'] = to_email
             self.msg['Subject'] = Header(self.header, 'utf-8').encode()
             status = self.smtp.sendmail(
@@ -165,7 +164,7 @@ class MailCrawler():
     def send_to_multiple_recipients_mail(self, to_emails):
         self.logger.info("====== Start sending! =====")
         self.msg['From'] = self.from_email
-        del self.msg['To']  # 不加這個會變成群發
+        del self.msg['To'] # 不加這個會變成群發
         self.msg['To'] = (', ').join(to_emails)
         self.msg['Subject'] = Header(self.header, 'utf-8').encode()
         status = self.smtp.sendmail(
@@ -178,6 +177,7 @@ class MailCrawler():
                 to_emaisl, self.header))
             self.logger.error(status)
         self.logger.info('====== All sent ======')
+
 
     def close(self):
         self.smtp.quit()

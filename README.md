@@ -1,6 +1,9 @@
-# send embed image email
+# MailCrawler
 有天被未來的同事(應該啦?)問了    
 「怎麼發送嵌在email內的圖片啊? 不是附件喔!」    
+
+2020/09/10 - send inline image email -> send embed image email    
+2020/10/31 - send embed image email -> MailCrawler     
 
 -----
 
@@ -13,7 +16,10 @@ pip install -r requirements.txt
 -----
 
 ## 使用方式 use
-直接搬 main.py 來講解
+
+**要先去設定 `./config/base.py` 改設定喔**    
+
+直接搬 main.py 來講解    
 ```python
 from MailCrawler import MailCrawler
 
@@ -44,6 +50,7 @@ if __name__ == '__main__':
     MailCrawler_2.close()  # 關閉SMTP
 ```
 
+-----
 
 ## 截圖
 
