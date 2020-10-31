@@ -66,7 +66,7 @@ class MailSender():
             self.log_format = kwargs['log_format']
 
         rdt_len = 5  # 要隨機生成幾個字串
-        # ↓為了不要在多個 MailCrawler log打架
+        # ↓為了不要在多個 MailSender log打架
         rdt = ''.join(random.choice(string.ascii_letters + string.digits)
                       for x in range(rdt_len))
         logger = logging.getLogger(__name__ + '_' + rdt)
