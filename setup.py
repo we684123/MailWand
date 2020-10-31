@@ -5,7 +5,7 @@ with open("README.md", "r", encoding='utf-8') as fh:
 
 setup(
     name="MailCrawler",
-    version="1.0.1",
+    version="1.0.2",
     keywords=("mail", "email","crawler","embed","image"),
     description="link to crawler send email",
     long_description=long_description,
