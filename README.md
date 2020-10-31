@@ -3,8 +3,8 @@
 「怎麼發送嵌在email內的圖片啊? 不是附件喔!」    
 
 2020/09/10 - send inline image email -> send embed image email    
-2020/10/31 - send embed image email -> MailSender     
-2020/11/01 - MailSender -> MailSender     
+2020/10/31 - send embed image email -> MailCrawler     
+2020/11/01 - MailCrawler -> MailSender     
 
 名字好難想Rrrr...    
 
@@ -12,10 +12,12 @@
 
 ## Packages install
 
+**⚠️python version require >= 3.5⚠️**
 ```allowEmpty
 pip install mailsender
 ```
-**⚠️python version require >= 3.4⚠️**
+倘若安裝過程有問題請 `pip install -r requirements.txt`，應該都能解決。    
+
 
 -----
 
