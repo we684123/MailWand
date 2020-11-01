@@ -1,4 +1,4 @@
-﻿coloredlogs==14.0
-get-filename==1.0.0
-mailsender==1.0.0
 humanfriendly==8.1
+coloredlogs==14.0
+get-filename==1.0.0
+mailwand==1.0.0
