@@ -1,2 +1,10 @@
 
 config/base_me.py
+
+dist/
+
+MailSender.egg-info/
+
+build/
+
+mailwand.egg-info/

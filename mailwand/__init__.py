@@ -1,0 +1,1 @@
+from .mailwand import MailWand
