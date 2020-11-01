@@ -6,3 +6,5 @@ dist/
 MailSender.egg-info/
 
 build/
+
+mailwand.egg-info/
